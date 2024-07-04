@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -568,12 +569,17 @@
 	          </div>
           </div>
 
+		
+
+
+
+
 		  <div class="container">
 			<br>
 			<br>
 			<div class="row justify-content-center">
 				<div class="col-md-7 ftco-animate text-center">
-					<h2>Have a<span> Question?  </span> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdexONtxEwCM68FbIOR2KIzFphC-52CHH4pGI2H9AfAS5PBqg/viewform?usp=sf_link" class="btn btn-primary py-3 px-5">Click Here</a> </h2>
+					<h2>Have a<span> Question?  </span> </h2>
 				</div>
 			</div>
 				<br>
@@ -586,6 +592,32 @@
 				<br>
 		   </div>
    </div>
+<div class="container">
+	<div class="row justify-content-center mt-5">
+		<div class="col-lg-6 col-md-8 col-12">
+			<div class="about-wrap">
+				<form id="contact-form" action="https://formspree.io/f/xeojqray" method="post">
+					<div class="form-group">
+						<input type="text" name="name" class="form-control" placeholder="Your Name" required>
+					</div>
+					<div class="form-group">
+						<input type="email" name="email" class="form-control" placeholder="Your Email" required>
+					</div>
+					<div class="form-group">
+						<textarea name="message" cols="30" rows="7" class="form-control" placeholder="Message"
+							required></textarea>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+					</div>
+				</form>
+				<div id="notification" class="alert d-none" role="alert"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
  </section>
 
 
@@ -623,6 +655,36 @@
   <script src="js/scrollax.min.js"></script>
   
   <script src="js/main.js"></script>
+  <script>
+	document.querySelector('#contact-form').addEventListener('submit', function (event) {
+		event.preventDefault();
+		var form = event.target;
+		var notification = document.querySelector('#notification');
+
+		fetch(form.action, {
+			method: 'POST',
+			body: new FormData(form),
+			headers: {
+				'Accept': 'application/json'
+			}
+		}).then(response => {
+			if (response.ok) {
+				notification.classList.remove('d-none');
+				notification.classList.add('alert-success');
+				notification.textContent = 'Your message has been sent successfully!';
+				form.reset();
+			} else {
+				notification.classList.remove('d-none');
+				notification.classList.add('alert-danger');
+				notification.textContent = 'There was a problem sending your message.';
+			}
+		}).catch(error => {
+			notification.classList.remove('d-none');
+			notification.classList.add('alert-danger');
+			notification.textContent = 'There was a problem sending your message.';
+		});
+	});
+</script>
     
   </body>
 </html>
